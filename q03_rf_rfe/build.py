@@ -12,13 +12,12 @@ from sklearn.ensemble import RandomForestClassifier
 def rf_rfe(df):
     model = RandomForestClassifier()
     X,y = df.iloc[:,:-1], df.iloc[:,-1]
-    rfe = RFE(model,step=1)
+    rfe = RFE(model)
     rfe = rfe.fit(X,y)
     ranking = list(rfe.ranking_)
-    rfe = RFE(model, round(len(X.columns) / 2, 0)).fit(X, y)
     top_features = []
 
-    for i in range(len(rfe.ranking_)):
+    for i in range(len(ranking)):
         if rfe.ranking_[i] == 1:
             top_features.append(X.columns[i])
 
